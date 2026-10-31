@@ -34,7 +34,7 @@ while (true)
         case "0":
             return;
         case "1":
-            foreach (var category in categoryRepo.GetCategories())
+            foreach (var category in await categoryRepo.GetCategoriesAsync())
             {
                 Console.WriteLine($"Id: {category.Id}, Name: {category.Name}");
             }
@@ -43,7 +43,7 @@ while (true)
             Console.WriteLine("Enter category id:");
             if (int.TryParse(Console.ReadLine(), out int categoryId))
             {
-                var category = categoryRepo.GetCategoryById(categoryId);
+                var category = await categoryRepo.GetCategoryByIdAsync(categoryId);
                 if (category != null)
                 {
                     Console.WriteLine($"Id: {category.Id}, Name: {category.Name}");
@@ -63,7 +63,7 @@ while (true)
             var newCategoryName = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(newCategoryName))
             {
-                categoryRepo.AddCategory(new Category { Name = newCategoryName });
+                await categoryRepo.AddCategoryAsync(new Category { Name = newCategoryName });
                 Console.WriteLine("Added successfully.");
             }
             else
@@ -79,7 +79,7 @@ while (true)
                 var updatedCategoryName = Console.ReadLine();
                 if (!string.IsNullOrWhiteSpace(updatedCategoryName))
                 {
-                    categoryRepo.UpdateCategory(new Category { Id = updateCategoryId, Name = updatedCategoryName });
+                    await categoryRepo.UpdateCategoryAsync(new Category { Id = updateCategoryId, Name = updatedCategoryName });
                     Console.WriteLine("Updated.");
                 }
                 else
@@ -96,7 +96,7 @@ while (true)
             Console.WriteLine("Enter category id:");
             if (int.TryParse(Console.ReadLine(), out int deleteCategoryId))
             {
-                categoryRepo.DeleteCategory(deleteCategoryId);
+                await categoryRepo.DeleteCategoryAsync(deleteCategoryId);
                 Console.WriteLine("Deleted.");
             }
             else
@@ -105,7 +105,7 @@ while (true)
             }
             break;
         case "6":
-            foreach (var product in productRepo.GetProducts())
+            foreach (var product in await productRepo.GetProductsAsync())
             {
                 Console.WriteLine($"Id: {product.Id}, Name: {product.Name}, Price: {product.Price}, Quantity: {product.Quantity}, CategoryId: {product.CategoryId}");
             }
@@ -114,7 +114,7 @@ while (true)
             Console.WriteLine("Enter product id:");
             if (int.TryParse(Console.ReadLine(), out int productId))
             {
-                var product = productRepo.GetProductById(productId);
+                var product = await productRepo.GetProductByIdAsync(productId);
                 if (product != null)
                 {
                     Console.WriteLine($"Id: {product.Id}, Name: {product.Name}, Price: {product.Price}, Quantity: {product.Quantity}, CategoryId: {product.CategoryId}");
@@ -133,7 +133,7 @@ while (true)
             Console.WriteLine("Enter category id:");
             if (int.TryParse(Console.ReadLine(), out int productsCategoryId))
             {
-                foreach (var product in productRepo.GetProductsByCategory(productsCategoryId))
+                foreach (var product in await productRepo.GetProductsByCategoryAsync(productsCategoryId))
                 {
                     Console.WriteLine($"Id: {product.Id}, Name: {product.Name}, Price: {product.Price}, Quantity: {product.Quantity}, CategoryId: {product.CategoryId}");
                 }
@@ -158,7 +158,7 @@ while (true)
                 int.TryParse(newProductQuantityInput, out int newProductQuantity) &&
                 int.TryParse(newProductCategoryIdInput, out int newProductCategoryId))
             {
-                productRepo.AddProduct(new Product
+                await productRepo.AddProductAsync(new Product
                 {
                     Name = newProductName,
                     Price = newProductPrice,
@@ -190,7 +190,7 @@ while (true)
                 int.TryParse(updatedProductQuantityInput, out int updatedProductQuantity) &&
                 int.TryParse(updatedProductCategoryIdInput, out int updatedProductCategoryId))
             {
-                productRepo.UpdateProduct(new Product
+                await productRepo.UpdateProductAsync(new Product
                 {
                     Id = updateProductId,
                     Name = updatedProductName,
@@ -209,7 +209,7 @@ while (true)
             Console.WriteLine("Enter product id:");
             if (int.TryParse(Console.ReadLine(), out int deleteProductId))
             {
-                productRepo.DeleteProduct(deleteProductId);
+                await productRepo.DeleteProductAsync(deleteProductId);
                 Console.WriteLine("Deleted.");
             }
             else
@@ -218,16 +218,16 @@ while (true)
             }
             break;
         case "12":
-            Console.WriteLine($"Amount of products: {productRepo.GetAmountOfProducts()}");
+            Console.WriteLine($"Amount of products: {await productRepo.GetAmountOfProductsAsync()}");
             break;
         case "13":
-            Console.WriteLine($"Amount of categories: {categoryRepo.GetAmountOfCategories()}");
+            Console.WriteLine($"Amount of categories: {await categoryRepo.GetAmountOfCategoriesAsync()}");
             break;
         case "14":
             Console.WriteLine("Enter category id:");
             if (int.TryParse(Console.ReadLine(), out int countCategoryId))
             {
-                Console.WriteLine($"Amount of products: {productRepo.GetAmountOfProductsByCategory(countCategoryId)}");
+                Console.WriteLine($"Amount of products: {await productRepo.GetAmountOfProductsByCategoryAsync(countCategoryId)}");
             }
             else
             {
@@ -238,7 +238,7 @@ while (true)
             Console.WriteLine("Enter category id:");
             if (int.TryParse(Console.ReadLine(), out int minCategoryId))
             {
-                var minPrice = productRepo.GetMinPriceOfProductByCategory(minCategoryId);
+                var minPrice = await productRepo.GetMinPriceOfProductByCategoryAsync(minCategoryId);
                 Console.WriteLine(minPrice.HasValue ? $"Minimum price: {minPrice}" : "No products in this category.");
             }
             else
@@ -250,7 +250,7 @@ while (true)
             Console.WriteLine("Enter category id:");
             if (int.TryParse(Console.ReadLine(), out int maxCategoryId))
             {
-                var maxPrice = productRepo.GetMaxPriceOfProductByCategory(maxCategoryId);
+                var maxPrice = await productRepo.GetMaxPriceOfProductByCategoryAsync(maxCategoryId);
                 Console.WriteLine(maxPrice.HasValue ? $"Maximum price: {maxPrice}" : "No products in this category.");
             }
             else
@@ -262,7 +262,7 @@ while (true)
             Console.WriteLine("Enter category id:");
             if (int.TryParse(Console.ReadLine(), out int averageCategoryId))
             {
-                var averagePrice = productRepo.GetAveragePriceOfProductByCategory(averageCategoryId);
+                var averagePrice = await productRepo.GetAveragePriceOfProductByCategoryAsync(averageCategoryId);
                 Console.WriteLine(averagePrice.HasValue ? $"Average price: {averagePrice}" : "No products in this category.");
             }
             else
@@ -271,7 +271,7 @@ while (true)
             }
             break;
         case "18":
-            Console.WriteLine($"Total price of products: {productRepo.GetTotalPriceOfProducts()}");
+            Console.WriteLine($"Total price of products: {await productRepo.GetTotalPriceOfProductsAsync()}");
             break;
         default:
             Console.WriteLine("Invalid choice.");

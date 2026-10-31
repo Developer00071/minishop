@@ -9,103 +9,105 @@ public sealed class ProductRepository : IProductRepository
 {
     private const string ProductColumns = "id, name, price, quantity, category_id AS \"CategoryId\"";
 
-    public void AddProduct(Product product)
+    public async Task AddProductAsync(Product product)
     {
-        using var conn = Database.Database.connection();
-        conn.Open();
-        conn.Execute(
+        await using var conn = Database.Database.connection();
+        await conn.OpenAsync();
+        await conn.ExecuteAsync(
             "INSERT INTO products (name, price, quantity, category_id) VALUES (@Name, @Price, @Quantity, @CategoryId)",
             product);
     }
 
-    public void UpdateProduct(Product product)
+    public async Task UpdateProductAsync(Product product)
     {
-        using var conn = Database.Database.connection();
-        conn.Open();
-        conn.Execute(
+        await using var conn = Database.Database.connection();
+        await conn.OpenAsync();
+        await conn.ExecuteAsync(
             "UPDATE products SET name = @Name, price = @Price, quantity = @Quantity, category_id = @CategoryId WHERE id = @Id",
             product);
     }
 
-    public void DeleteProduct(int id)
+    public async Task DeleteProductAsync(int id)
     {
-        using var conn = Database.Database.connection();
-        conn.Open();
-        conn.Execute("DELETE FROM products WHERE id = @id", new { id });
+        await using var conn = Database.Database.connection();
+        await conn.OpenAsync();
+        await conn.ExecuteAsync("DELETE FROM products WHERE id = @id", new { id });
     }
 
-    public List<Product> GetProducts()
+    public async Task<List<Product>> GetProductsAsync()
     {
-        using var conn = Database.Database.connection();
-        conn.Open();
-        return conn.Query<Product>($"SELECT {ProductColumns} FROM products").ToList();
+        await using var conn = Database.Database.connection();
+        await conn.OpenAsync();
+        var products = await conn.QueryAsync<Product>($"SELECT {ProductColumns} FROM products");
+        return products.ToList();
     }
 
-    public List<Product> GetProductsByCategory(int categoryId)
+    public async Task<List<Product>> GetProductsByCategoryAsync(int categoryId)
     {
-        using var conn = Database.Database.connection();
-        conn.Open();
-        return conn.Query<Product>(
+        await using var conn = Database.Database.connection();
+        await conn.OpenAsync();
+        var products = await conn.QueryAsync<Product>(
             $"SELECT {ProductColumns} FROM products WHERE category_id = @categoryId",
-            new { categoryId }).ToList();
+            new { categoryId });
+        return products.ToList();
     }
 
-    public Product? GetProductById(int id)
+    public async Task<Product?> GetProductByIdAsync(int id)
     {
-        using var conn = Database.Database.connection();
-        conn.Open();
-        return conn.QuerySingleOrDefault<Product>(
+        await using var conn = Database.Database.connection();
+        await conn.OpenAsync();
+        return await conn.QuerySingleOrDefaultAsync<Product>(
             $"SELECT {ProductColumns} FROM products WHERE id = @id",
             new { id });
     }
 
-    public int GetAmountOfProducts()
+    public async Task<int> GetAmountOfProductsAsync()
     {
-        using var conn = Database.Database.connection();
-        conn.Open();
-        return conn.ExecuteScalar<int>("SELECT COUNT(*) FROM products");
+        await using var conn = Database.Database.connection();
+        await conn.OpenAsync();
+        return await conn.ExecuteScalarAsync<int>("SELECT COUNT(*) FROM products");
     }
 
-    public int GetAmountOfProductsByCategory(int categoryId)
+    public async Task<int> GetAmountOfProductsByCategoryAsync(int categoryId)
     {
-        using var conn = Database.Database.connection();
-        conn.Open();
-        return conn.ExecuteScalar<int>(
+        await using var conn = Database.Database.connection();
+        await conn.OpenAsync();
+        return await conn.ExecuteScalarAsync<int>(
             "SELECT COUNT(*) FROM products WHERE category_id = @categoryId",
             new { categoryId });
     }
 
-    public decimal? GetMinPriceOfProductByCategory(int categoryId)
+    public async Task<decimal?> GetMinPriceOfProductByCategoryAsync(int categoryId)
     {
-        using var conn = Database.Database.connection();
-        conn.Open();
-        return conn.ExecuteScalar<decimal?>(
+        await using var conn = Database.Database.connection();
+        await conn.OpenAsync();
+        return await conn.ExecuteScalarAsync<decimal?>(
             "SELECT MIN(price) FROM products WHERE category_id = @categoryId",
             new { categoryId });
     }
 
-    public decimal? GetMaxPriceOfProductByCategory(int categoryId)
+    public async Task<decimal?> GetMaxPriceOfProductByCategoryAsync(int categoryId)
     {
-        using var conn = Database.Database.connection();
-        conn.Open();
-        return conn.ExecuteScalar<decimal?>(
+        await using var conn = Database.Database.connection();
+        await conn.OpenAsync();
+        return await conn.ExecuteScalarAsync<decimal?>(
             "SELECT MAX(price) FROM products WHERE category_id = @categoryId",
             new { categoryId });
     }
 
-    public decimal? GetAveragePriceOfProductByCategory(int categoryId)
+    public async Task<decimal?> GetAveragePriceOfProductByCategoryAsync(int categoryId)
     {
-        using var conn = Database.Database.connection();
-        conn.Open();
-        return conn.ExecuteScalar<decimal?>(
+        await using var conn = Database.Database.connection();
+        await conn.OpenAsync();
+        return await conn.ExecuteScalarAsync<decimal?>(
             "SELECT AVG(price) FROM products WHERE category_id = @categoryId",
             new { categoryId });
     }
 
-    public decimal GetTotalPriceOfProducts()
+    public async Task<decimal> GetTotalPriceOfProductsAsync()
     {
-        using var conn = Database.Database.connection();
-        conn.Open();
-        return conn.ExecuteScalar<decimal>("SELECT COALESCE(SUM(price), 0) FROM products");
+        await using var conn = Database.Database.connection();
+        await conn.OpenAsync();
+        return await conn.ExecuteScalarAsync<decimal>("SELECT COALESCE(SUM(price), 0) FROM products");
     }
 }

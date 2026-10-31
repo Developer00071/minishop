@@ -7,47 +7,48 @@ namespace Infrastructure.Repositories;
 
 public sealed class CategoryRepository : ICategoryRepository
 {
-    public void AddCategory(Category category)
+    public async Task AddCategoryAsync(Category category)
     {
-        using var conn = Database.Database.connection();
-        conn.Open();
-        conn.Execute("INSERT INTO categories (name) VALUES (@Name)", category);
+        await using var conn = Database.Database.connection();
+        await conn.OpenAsync();
+        await conn.ExecuteAsync("INSERT INTO categories (name) VALUES (@Name)", category);
     }
 
-    public void UpdateCategory(Category category)
+    public async Task UpdateCategoryAsync(Category category)
     {
-        using var conn = Database.Database.connection();
-        conn.Open();
-        conn.Execute("UPDATE categories SET name = @Name WHERE id = @Id", category);
+        await using var conn = Database.Database.connection();
+        await conn.OpenAsync();
+        await conn.ExecuteAsync("UPDATE categories SET name = @Name WHERE id = @Id", category);
     }
 
-    public void DeleteCategory(int id)
+    public async Task DeleteCategoryAsync(int id)
     {
-        using var conn = Database.Database.connection();
-        conn.Open();
-        conn.Execute("DELETE FROM categories WHERE id = @id", new { id });
+        await using var conn = Database.Database.connection();
+        await conn.OpenAsync();
+        await conn.ExecuteAsync("DELETE FROM categories WHERE id = @id", new { id });
     }
 
-    public List<Category> GetCategories()
+    public async Task<List<Category>> GetCategoriesAsync()
     {
-        using var conn = Database.Database.connection();
-        conn.Open();
-        return conn.Query<Category>("SELECT id, name FROM categories").ToList();
+        await using var conn = Database.Database.connection();
+        await conn.OpenAsync();
+        var categories = await conn.QueryAsync<Category>("SELECT id, name FROM categories");
+        return categories.ToList();
     }
 
-    public Category? GetCategoryById(int id)
+    public async Task<Category?> GetCategoryByIdAsync(int id)
     {
-        using var conn = Database.Database.connection();
-        conn.Open();
-        return conn.QuerySingleOrDefault<Category>(
+        await using var conn = Database.Database.connection();
+        await conn.OpenAsync();
+        return await conn.QuerySingleOrDefaultAsync<Category>(
             "SELECT id, name FROM categories WHERE id = @id",
             new { id });
     }
 
-    public int GetAmountOfCategories()
+    public async Task<int> GetAmountOfCategoriesAsync()
     {
-        using var conn = Database.Database.connection();
-        conn.Open();
-        return conn.ExecuteScalar<int>("SELECT COUNT(*) FROM categories");
+        await using var conn = Database.Database.connection();
+        await conn.OpenAsync();
+        return await conn.ExecuteScalarAsync<int>("SELECT COUNT(*) FROM categories");
     }
 }
