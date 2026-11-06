@@ -1,5 +1,7 @@
 <Solution>
+  <Project Path="Applicatiion/Applicatiion.csproj" />
   <Project Path="Consoleapp/Consoleapp.csproj" />
   <Project Path="Domain/Domain.csproj" />
   <Project Path="Infrastructure/Infrastructure.csproj" />
+  <Project Path="WebApi/WebApi.csproj" />
 </Solution>
