@@ -9,16 +9,14 @@ builder.Services.AddScoped<Applicatiion.Services.IProductService, Applicatiion.S
 builder.Services.AddScoped<Applicatiion.Services.ICategoryService, Applicatiion.Services.CategoryService>();
 
 var app = builder.Build();
+builder.Services.AddSwaggerGen();
 
-app.UseExceptionHandler();
-app.UseStatusCodePages();
 
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
 }
 
-app.UseHttpsRedirection();
 app.MapControllers();
 
 app.Run();

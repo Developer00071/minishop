@@ -1,4 +1,5 @@
 using System.Net;
+using Applicatiion.DTOs;
 using Applicatiion.Requests;
 using Applicatiion.Responses;
 using Applicatiion.Services;
@@ -11,50 +12,50 @@ namespace WebApi.Controllers;
 public sealed class CategoryController(ICategoryService categoryService) : ControllerBase
 {
     [HttpGet]
-    [ProducesResponseType(typeof(ApiResponse<IReadOnlyList<CategoryResponse>>), StatusCodes.Status200OK)]
-    public async Task<ActionResult<ApiResponse<IReadOnlyList<CategoryResponse>>>> GetAll(
+    [ProducesResponseType(typeof(ApiResponse<IReadOnlyList<CategoryDto>>), StatusCodes.Status200OK)]
+    public async Task<ActionResult<ApiResponse<IReadOnlyList<CategoryDto>>>> GetAll(
         CancellationToken cancellationToken)
     {
         var categories = await categoryService.GetAllAsync(cancellationToken);
-        return Ok(new ApiResponse<IReadOnlyList<CategoryResponse>>(
+        return Ok(new ApiResponse<IReadOnlyList<CategoryDto>>(
             HttpStatusCode.OK, "Categories retrieved successfully.", categories));
     }
 
     [HttpGet("{id:int}")]
-    [ProducesResponseType(typeof(ApiResponse<CategoryResponse>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse<CategoryResponse>), StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<ApiResponse<CategoryResponse>>> GetById(
+    [ProducesResponseType(typeof(ApiResponse<CategoryDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse<CategoryDto>), StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<ApiResponse<CategoryDto>>> GetById(
         int id, CancellationToken cancellationToken)
     {
         var category = await categoryService.GetByIdAsync(id, cancellationToken);
         return category is null
-            ? NotFound(new ApiResponse<CategoryResponse>(HttpStatusCode.NotFound, "Category not found."))
-            : Ok(new ApiResponse<CategoryResponse>(HttpStatusCode.OK, "Category retrieved successfully.", category));
+            ? NotFound(new ApiResponse<CategoryDto>(HttpStatusCode.NotFound, "Category not found."))
+            : Ok(new ApiResponse<CategoryDto>(HttpStatusCode.OK, "Category retrieved successfully.", category));
     }
 
     [HttpPost]
-    [ProducesResponseType(typeof(ApiResponse<CategoryResponse>), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ApiResponse<CategoryDto>), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<ApiResponse<CategoryResponse>>> Create(
+    public async Task<ActionResult<ApiResponse<CategoryDto>>> Create(
         CategoryRequest request, CancellationToken cancellationToken)
     {
         var category = await categoryService.CreateAsync(request, cancellationToken);
-        var response = new ApiResponse<CategoryResponse>(
+        var response = new ApiResponse<CategoryDto>(
             HttpStatusCode.Created, "Category created successfully.", category);
         return CreatedAtAction(nameof(GetById), new { id = category.Id }, response);
     }
 
     [HttpPut("{id:int}")]
-    [ProducesResponseType(typeof(ApiResponse<CategoryResponse>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse<CategoryResponse>), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ApiResponse<CategoryDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse<CategoryDto>), StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<ApiResponse<CategoryResponse>>> Update(
+    public async Task<ActionResult<ApiResponse<CategoryDto>>> Update(
         int id, CategoryRequest request, CancellationToken cancellationToken)
     {
         var category = await categoryService.UpdateAsync(id, request, cancellationToken);
         return category is null
-            ? NotFound(new ApiResponse<CategoryResponse>(HttpStatusCode.NotFound, "Category not found."))
-            : Ok(new ApiResponse<CategoryResponse>(HttpStatusCode.OK, "Category updated successfully.", category));
+            ? NotFound(new ApiResponse<CategoryDto>(HttpStatusCode.NotFound, "Category not found."))
+            : Ok(new ApiResponse<CategoryDto>(HttpStatusCode.OK, "Category updated successfully.", category));
     }
 
     [HttpDelete("{id:int}")]

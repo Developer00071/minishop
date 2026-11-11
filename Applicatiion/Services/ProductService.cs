@@ -1,3 +1,4 @@
+using Applicatiion.DTOs;
 using Applicatiion.Requests;
 using Domain.Interfaces;
 using Domain.Models;
@@ -6,26 +7,26 @@ namespace Applicatiion.Services;
 
 public sealed class ProductService(IProductRepository repository) : IProductService
 {
-    public async Task<IReadOnlyList<ProductResponse>> GetAllAsync(CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<ProductDto>> GetAllAsync(CancellationToken cancellationToken)
     {
         var products = await repository.GetProductsAsync(cancellationToken);
-        return products.Select(ToResponse).ToList();
+        return products.Select(ToDto).ToList();
     }
 
-    public async Task<IReadOnlyList<ProductResponse>> GetByCategoryAsync(
+    public async Task<IReadOnlyList<ProductDto>> GetByCategoryAsync(
         int categoryId, CancellationToken cancellationToken)
     {
         var products = await repository.GetProductsByCategoryAsync(categoryId, cancellationToken);
-        return products.Select(ToResponse).ToList();
+        return products.Select(ToDto).ToList();
     }
 
-    public async Task<ProductResponse?> GetByIdAsync(int id, CancellationToken cancellationToken)
+    public async Task<ProductDto?> GetByIdAsync(int id, CancellationToken cancellationToken)
     {
         var product = await repository.GetProductByIdAsync(id, cancellationToken);
-        return product is null ? null : ToResponse(product);
+        return product is null ? null : ToDto(product);
     }
 
-    public async Task<ProductResponse> CreateAsync(
+    public async Task<ProductDto> CreateAsync(
         CreateProductRequest request, CancellationToken cancellationToken)
     {
         var product = new Product
@@ -36,10 +37,10 @@ public sealed class ProductService(IProductRepository repository) : IProductServ
             CategoryId = request.CategoryId
         };
         product.Id = await repository.AddProductAsync(product, cancellationToken);
-        return ToResponse(product);
+        return ToDto(product);
     }
 
-    public async Task<ProductResponse?> UpdateAsync(
+    public async Task<ProductDto?> UpdateAsync(
         int id, UpdateProductRequest request, CancellationToken cancellationToken)
     {
         var product = new Product
@@ -51,7 +52,7 @@ public sealed class ProductService(IProductRepository repository) : IProductServ
             CategoryId = request.CategoryId
         };
         return await repository.UpdateProductAsync(product, cancellationToken)
-            ? ToResponse(product)
+            ? ToDto(product)
             : null;
     }
 
@@ -76,6 +77,6 @@ public sealed class ProductService(IProductRepository repository) : IProductServ
     public Task<decimal> GetTotalPriceAsync(CancellationToken cancellationToken) =>
         repository.GetTotalPriceOfProductsAsync(cancellationToken);
 
-    private static ProductResponse ToResponse(Product product) =>
-        new(product.Id, product.Name, product.Price, product.Quantity, product.CategoryId);
+    private static ProductDto ToDto(Product product) =>
+        new() { Id = product.Id, Name = product.Name, Price = product.Price, Quantity = product.Quantity, CategoryId = product.CategoryId };
 }

@@ -241,11 +241,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\Abdullo\\Desktop\\minishop\\Infrastructure\\Infrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\Abdullo\\Desktop\\minishop\\Infrastructure\\Infrastructure.csproj",
       "projectName": "Infrastructure",
-      "projectPath": "c:\\Users\\Abdullo\\Desktop\\minishop\\Infrastructure\\Infrastructure.csproj",
+      "projectPath": "C:\\Users\\Abdullo\\Desktop\\minishop\\Infrastructure\\Infrastructure.csproj",
       "packagesPath": "C:\\Users\\Abdullo\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\Abdullo\\Desktop\\minishop\\Infrastructure\\obj\\",
+      "outputPath": "C:\\Users\\Abdullo\\Desktop\\minishop\\Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Abdullo\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -261,8 +261,8 @@
           "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {
-            "c:\\Users\\Abdullo\\Desktop\\minishop\\Domain\\Domain.csproj": {
-              "projectPath": "c:\\Users\\Abdullo\\Desktop\\minishop\\Domain\\Domain.csproj"
+            "C:\\Users\\Abdullo\\Desktop\\minishop\\Domain\\Domain.csproj": {
+              "projectPath": "C:\\Users\\Abdullo\\Desktop\\minishop\\Domain\\Domain.csproj"
             }
           }
         }

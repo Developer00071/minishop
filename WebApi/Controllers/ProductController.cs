@@ -1,4 +1,5 @@
 using System.Net;
+using Applicatiion.DTOs;
 using Applicatiion.Requests;
 using Applicatiion.Responses;
 using Applicatiion.Services;
@@ -11,60 +12,60 @@ namespace WebApi.Controllers;
 public sealed class ProductController(IProductService productService) : ControllerBase
 {
     [HttpGet]
-    [ProducesResponseType(typeof(ApiResponse<IReadOnlyList<ProductResponse>>), StatusCodes.Status200OK)]
-    public async Task<ActionResult<ApiResponse<IReadOnlyList<ProductResponse>>>> GetAll(
+    [ProducesResponseType(typeof(ApiResponse<IReadOnlyList<ProductDto>>), StatusCodes.Status200OK)]
+    public async Task<ActionResult<ApiResponse<IReadOnlyList<ProductDto>>>> GetAll(
         CancellationToken cancellationToken)
     {
         var products = await productService.GetAllAsync(cancellationToken);
-        return Ok(new ApiResponse<IReadOnlyList<ProductResponse>>(
+        return Ok(new ApiResponse<IReadOnlyList<ProductDto>>(
             HttpStatusCode.OK, "Products retrieved successfully.", products));
     }
 
     [HttpGet("{id:int}")]
-    [ProducesResponseType(typeof(ApiResponse<ProductResponse>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse<ProductResponse>), StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<ApiResponse<ProductResponse>>> GetById(
+    [ProducesResponseType(typeof(ApiResponse<ProductDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse<ProductDto>), StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<ApiResponse<ProductDto>>> GetById(
         int id, CancellationToken cancellationToken)
     {
         var product = await productService.GetByIdAsync(id, cancellationToken);
         return product is null
-            ? NotFound(new ApiResponse<ProductResponse>(HttpStatusCode.NotFound, "Product not found."))
-            : Ok(new ApiResponse<ProductResponse>(HttpStatusCode.OK, "Product retrieved successfully.", product));
+            ? NotFound(new ApiResponse<ProductDto>(HttpStatusCode.NotFound, "Product not found."))
+            : Ok(new ApiResponse<ProductDto>(HttpStatusCode.OK, "Product retrieved successfully.", product));
     }
 
     [HttpGet("category/{categoryId:int}")]
-    [ProducesResponseType(typeof(ApiResponse<IReadOnlyList<ProductResponse>>), StatusCodes.Status200OK)]
-    public async Task<ActionResult<ApiResponse<IReadOnlyList<ProductResponse>>>> GetByCategory(
+    [ProducesResponseType(typeof(ApiResponse<IReadOnlyList<ProductDto>>), StatusCodes.Status200OK)]
+    public async Task<ActionResult<ApiResponse<IReadOnlyList<ProductDto>>>> GetByCategory(
         int categoryId, CancellationToken cancellationToken)
     {
         var products = await productService.GetByCategoryAsync(categoryId, cancellationToken);
-        return Ok(new ApiResponse<IReadOnlyList<ProductResponse>>(
+        return Ok(new ApiResponse<IReadOnlyList<ProductDto>>(
             HttpStatusCode.OK, "Products retrieved successfully.", products));
     }
 
     [HttpPost]
-    [ProducesResponseType(typeof(ApiResponse<ProductResponse>), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ApiResponse<ProductDto>), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<ApiResponse<ProductResponse>>> Create(
+    public async Task<ActionResult<ApiResponse<ProductDto>>> Create(
         CreateProductRequest request, CancellationToken cancellationToken)
     {
         var product = await productService.CreateAsync(request, cancellationToken);
-        var response = new ApiResponse<ProductResponse>(
+        var response = new ApiResponse<ProductDto>(
             HttpStatusCode.Created, "Product created successfully.", product);
         return CreatedAtAction(nameof(GetById), new { id = product.Id }, response);
     }
 
     [HttpPut("{id:int}")]
-    [ProducesResponseType(typeof(ApiResponse<ProductResponse>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse<ProductResponse>), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ApiResponse<ProductDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse<ProductDto>), StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<ApiResponse<ProductResponse>>> Update(
+    public async Task<ActionResult<ApiResponse<ProductDto>>> Update(
         int id, UpdateProductRequest request, CancellationToken cancellationToken)
     {
         var product = await productService.UpdateAsync(id, request, cancellationToken);
         return product is null
-            ? NotFound(new ApiResponse<ProductResponse>(HttpStatusCode.NotFound, "Product not found."))
-            : Ok(new ApiResponse<ProductResponse>(HttpStatusCode.OK, "Product updated successfully.", product));
+            ? NotFound(new ApiResponse<ProductDto>(HttpStatusCode.NotFound, "Product not found."))
+            : Ok(new ApiResponse<ProductDto>(HttpStatusCode.OK, "Product updated successfully.", product));
     }
 
     [HttpDelete("{id:int}")]
