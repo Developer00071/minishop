@@ -13,12 +13,10 @@ C:\Users\Abdullo\Desktop\minishop\WebApi\bin\Debug\net10.0\Npgsql.dll
 C:\Users\Abdullo\Desktop\minishop\WebApi\bin\Debug\net10.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\Abdullo\Desktop\minishop\WebApi\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\Abdullo\Desktop\minishop\WebApi\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerUI.dll
-C:\Users\Abdullo\Desktop\minishop\WebApi\bin\Debug\net10.0\Applicatiion.dll
 C:\Users\Abdullo\Desktop\minishop\WebApi\bin\Debug\net10.0\Domain.dll
 C:\Users\Abdullo\Desktop\minishop\WebApi\bin\Debug\net10.0\Infrastructure.dll
 C:\Users\Abdullo\Desktop\minishop\WebApi\bin\Debug\net10.0\Domain.pdb
 C:\Users\Abdullo\Desktop\minishop\WebApi\bin\Debug\net10.0\Infrastructure.pdb
-C:\Users\Abdullo\Desktop\minishop\WebApi\bin\Debug\net10.0\Applicatiion.pdb
 C:\Users\Abdullo\Desktop\minishop\WebApi\obj\Debug\net10.0\WebApi.csproj.AssemblyReference.cache
 C:\Users\Abdullo\Desktop\minishop\WebApi\obj\Debug\net10.0\rpswa.dswa.cache.json
 C:\Users\Abdullo\Desktop\minishop\WebApi\obj\Debug\net10.0\WebApi.GeneratedMSBuildEditorConfig.editorconfig
@@ -43,3 +41,5 @@ C:\Users\Abdullo\Desktop\minishop\WebApi\obj\Debug\net10.0\refint\WebApi.dll
 C:\Users\Abdullo\Desktop\minishop\WebApi\obj\Debug\net10.0\WebApi.pdb
 C:\Users\Abdullo\Desktop\minishop\WebApi\obj\Debug\net10.0\WebApi.genruntimeconfig.cache
 C:\Users\Abdullo\Desktop\minishop\WebApi\obj\Debug\net10.0\ref\WebApi.dll
+C:\Users\Abdullo\Desktop\minishop\WebApi\bin\Debug\net10.0\Application.dll
+C:\Users\Abdullo\Desktop\minishop\WebApi\bin\Debug\net10.0\Application.pdb

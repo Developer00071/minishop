@@ -1,22 +1,31 @@
+using Application.Data;
+using Application.Interfaces;
+using Application.Services;
+using Domain.interfaces;
+using Infrastructure.Repositories;
+using WebApi.MiddleWares;
+
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddOpenApi();
-builder.Services.AddProblemDetails();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
-builder.Services.AddScoped<Domain.Interfaces.IProductRepository, Infrastructure.Repositories.ProductRepository>();
-builder.Services.AddScoped<Domain.Interfaces.ICategoryRepository, Infrastructure.Repositories.CategoryRepository>();
-builder.Services.AddScoped<Applicatiion.Services.IProductService, Applicatiion.Services.ProductService>();
-builder.Services.AddScoped<Applicatiion.Services.ICategoryService, Applicatiion.Services.CategoryService>();
+
+builder.Services.AddScoped<Database>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 var app = builder.Build();
-builder.Services.AddSwaggerGen();
-
 
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
+app.UseMiddleware<RequestLoggingMiddleWare>();
 app.MapControllers();
-
 app.Run();

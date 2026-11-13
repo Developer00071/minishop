@@ -1,7 +1,7 @@
 namespace Domain.Models;
 
-public sealed class Category
+public class Category
 {
     public int Id { get; set; }
-    public string Name { get; set; } = string.Empty;
+    public string Name { get; set; }
 }

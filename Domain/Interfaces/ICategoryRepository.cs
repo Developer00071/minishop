@@ -1,13 +1,12 @@
 using Domain.Models;
 
-namespace Domain.Interfaces;
+namespace Domain.interfaces;
 
 public interface ICategoryRepository
 {
-    Task<int> AddCategoryAsync(Category category, CancellationToken cancellationToken = default);
-    Task<bool> UpdateCategoryAsync(Category category, CancellationToken cancellationToken = default);
-    Task<bool> DeleteCategoryAsync(int id, CancellationToken cancellationToken = default);
-    Task<List<Category>> GetCategoriesAsync(CancellationToken cancellationToken = default);
-    Task<Category?> GetCategoryByIdAsync(int id, CancellationToken cancellationToken = default);
-    Task<int> GetAmountOfCategoriesAsync(CancellationToken cancellationToken = default);
+    Task<List<Category>> GetAllCategories();
+    Task<Category?> GetCategory(int id);
+    Task<bool> AddCategory(Category c);
+    Task<bool> UpdateCategory(Category c);
+    Task<bool> DeleteCategory(int id);
 }

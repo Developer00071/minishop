@@ -8,8 +8,7 @@
     ".NETCoreApp,Version=v10.0": {
       "WebApi/1.0.0": {
         "dependencies": {
-          "Applicatiion": "1.0.0",
-          "Domain": "1.0.0",
+          "Application": "1.0.0",
           "Infrastructure": "1.0.0",
           "Microsoft.AspNetCore.OpenApi": "10.0.10",
           "Swashbuckle.AspNetCore": "10.3.1"
@@ -90,19 +89,23 @@
           }
         }
       },
-      "Applicatiion/1.0.0": {
+      "Application/1.0.0": {
         "dependencies": {
+          "Dapper": "2.1.89",
           "Domain": "1.0.0",
-          "Infrastructure": "1.0.0"
+          "Npgsql": "10.0.3"
         },
         "runtime": {
-          "Applicatiion.dll": {
+          "Application.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
         }
       },
       "Domain/1.0.0": {
+        "dependencies": {
+          "Npgsql": "10.0.3"
+        },
         "runtime": {
           "Domain.dll": {
             "assemblyVersion": "1.0.0.0",
@@ -112,9 +115,9 @@
       },
       "Infrastructure/1.0.0": {
         "dependencies": {
+          "Application": "1.0.0",
           "Dapper": "2.1.89",
-          "Domain": "1.0.0",
-          "Npgsql": "10.0.3"
+          "Domain": "1.0.0"
         },
         "runtime": {
           "Infrastructure.dll": {
@@ -187,7 +190,7 @@
       "path": "swashbuckle.aspnetcore.swaggerui/10.3.1",
       "hashPath": "swashbuckle.aspnetcore.swaggerui.10.3.1.nupkg.sha512"
     },
-    "Applicatiion/1.0.0": {
+    "Application/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
