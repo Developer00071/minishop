@@ -12,32 +12,32 @@ public class CategoryController(ICategoryService categoryService) : ControllerBa
     private readonly ICategoryService _service = categoryService;
 
     [HttpGet]
-    public async Task<ApiResponse<List<CategoryDto>>> GetAllCategories()
+    public async Task<ApiResponse<List<CategoryDto>>> GetAllCategoriesAsync()
     {
-        return await _service.GetAllCategories();
+        return await _service.GetAllCategoriesAsync();
     }
 
     [HttpGet("{id:int}")]
-    public async Task<ApiResponse<CategoryDto>> GetCategory(int id)
+    public async Task<ApiResponse<CategoryDto>> GetCategoryAsync(int id)
     {
-        return await _service.GetCategory(id);
+        return await _service.GetCategoryAsync(id);
     }
 
     [HttpPost]
-    public async Task<ApiResponse<bool>> AddCategory(CategoryDto category)
+    public async Task<ApiResponse<bool>> AddCategoryAsync(CategoryDto category)
     {
-        return await _service.AddCategory(category);
+        return await _service.AddCategoryAsync(category);
     }
 
     [HttpDelete("{id:int}")]
-    public async Task<ApiResponse<bool>> DeleteCategory(int id)
+    public async Task<ApiResponse<bool>> DeleteCategoryAsync(int id)
     {
-        return await _service.DeleteCategory(id);
+        return await _service.DeleteCategoryAsync(id);
     }
 
-    [HttpPut]
-    public async Task<ApiResponse<bool>> UpdateCategory(CategoryDto category)
+    [HttpPut("{id:int}")]
+    public async Task<ApiResponse<bool>> UpdateCategoryAsync(int id, CategoryDto category)
     {
-        return await _service.UpdateCategory(category);
+        return await _service.UpdateCategoryAsync(id, category);
     }
 }

@@ -2,16 +2,16 @@ using System.Net;
 using Application.DTOs;
 using Application.Interfaces;
 using Application.Responses;
-using Domain.interfaces;
+using Domain.Interfaces;
 using Domain.Models;
 
 namespace Application.Services;
 
 public class ProductService(IProductRepository productRepository) : IProductService
 {
-    private IProductRepository _repository = productRepository;
+    private readonly IProductRepository _repository = productRepository;
 
-    public async Task<ApiResponse<bool>> AddProduct(ProductDto product)
+    public async Task<ApiResponse<bool>> AddProductAsync(ProductDto product)
     {
         var model = new Product
         {
@@ -20,25 +20,26 @@ public class ProductService(IProductRepository productRepository) : IProductServ
             Quantity = product.Quantity,
             CategoryId = product.CategoryId
         };
-        var res = await _repository.AddProduct(model);
+        var res = await _repository.AddProductAsync(model);
         return res
             ? new ApiResponse<bool>(HttpStatusCode.OK, "Added!", true)
             : new ApiResponse<bool>(HttpStatusCode.InternalServerError, "Not Added!", false);
     }
 
-    public async Task<ApiResponse<bool>> DeleteProduct(int id)
+    public async Task<ApiResponse<bool>> DeleteProductAsync(int id)
     {
-        var res = await _repository.DeleteProduct(id);
+        var res = await _repository.DeleteProductAsync(id);
         return res
             ? new ApiResponse<bool>(HttpStatusCode.OK, "Deleted!", true)
             : new ApiResponse<bool>(HttpStatusCode.InternalServerError, "Not Deleted!", false);
     }
 
-    public async Task<ApiResponse<List<ProductDto>>> GetAllProducts()
+    public async Task<ApiResponse<List<ProductDto>>> GetAllProductsAsync()
     {
-        var res = await _repository.GetAllProducts();
+        var res = await _repository.GetAllProductsAsync();
         var products = res.Select(p => new ProductDto
         {
+            Id = p.Id,
             Name = p.Name,
             Price = p.Price,
             Quantity = p.Quantity,
@@ -47,12 +48,13 @@ public class ProductService(IProductRepository productRepository) : IProductServ
         return new ApiResponse<List<ProductDto>>(HttpStatusCode.OK, "Products retrieved successfully", products);
     }
 
-    public async Task<ApiResponse<ProductDto>> GetProduct(int id)
+    public async Task<ApiResponse<ProductDto>> GetProductAsync(int id)
     {
-        var res = await _repository.GetProduct(id);
+        var res = await _repository.GetProductAsync(id);
         return res != null
             ? new ApiResponse<ProductDto>(HttpStatusCode.OK, "Product retrieved successfully", new ProductDto
             {
+                Id = res.Id,
                 Name = res.Name,
                 Price = res.Price,
                 Quantity = res.Quantity,
@@ -61,16 +63,17 @@ public class ProductService(IProductRepository productRepository) : IProductServ
             : new ApiResponse<ProductDto>(HttpStatusCode.NotFound, "Product not found", null);
     }
 
-    public async Task<ApiResponse<bool>> UpdateProduct(ProductDto product)
+    public async Task<ApiResponse<bool>> UpdateProductAsync(int id, ProductDto product)
     {
         var model = new Product
         {
+            Id = id,
             Name = product.Name,
             Price = product.Price,
             Quantity = product.Quantity,
             CategoryId = product.CategoryId
         };
-        var res = await _repository.UpdateProduct(model);
+        var res = await _repository.UpdateProductAsync(model);
         return res
             ? new ApiResponse<bool>(HttpStatusCode.OK, "Product updated successfully", true)
             : new ApiResponse<bool>(HttpStatusCode.InternalServerError, "Failed to update product", false);

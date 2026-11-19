@@ -13,37 +13,32 @@ public class ProductController(IProductService productService) : ControllerBase
 
 
     [HttpGet]
-    public async Task<ApiResponse<List<ProductDto>>> GetAllProducts()
+    public async Task<ApiResponse<List<ProductDto>>> GetAllProductsAsync()
     {
-
-        return await _service.GetAllProducts();
+        return await _service.GetAllProductsAsync();
     }
 
     [HttpGet("{id:int}")]
-    public async Task<ApiResponse<ProductDto>> GetProduct(int id)
+    public async Task<ApiResponse<ProductDto>> GetProductAsync(int id)
     {
-
-        return await _service.GetProduct(id);
+        return await _service.GetProductAsync(id);
     }
 
     [HttpPost]
-    public async Task<ApiResponse<bool>> AddProduct(ProductDto product)
+    public async Task<ApiResponse<bool>> AddProductAsync(ProductDto product)
     {
-
-        return await _service.AddProduct(product);
+        return await _service.AddProductAsync(product);
     }
 
     [HttpDelete("{id:int}")]
-    public async Task<ApiResponse<bool>> DeleteProduct(int id)
+    public async Task<ApiResponse<bool>> DeleteProductAsync(int id)
     {
-
-        return await _service.DeleteProduct(id);
+        return await _service.DeleteProductAsync(id);
     }
 
-    [HttpPut]
-    public async Task<ApiResponse<bool>> UpdateProduct(ProductDto product)
+    [HttpPut("{id:int}")]
+    public async Task<ApiResponse<bool>> UpdateProductAsync(int id, ProductDto product)
     {
-
-        return await _service.UpdateProduct(product);
+        return await _service.UpdateProductAsync(id, product);
     }
 }

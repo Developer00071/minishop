@@ -1,8 +1,9 @@
-using Application.Data;
 using Application.Interfaces;
 using Application.Services;
-using Domain.interfaces;
+using Domain.Interfaces;
+using Infrastructure.Data;
 using Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
 using WebApi.MiddleWares;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +12,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
-builder.Services.AddScoped<Database>();
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 

@@ -1,12 +1,12 @@
 using Domain.Models;
 
-namespace Domain.interfaces;
+namespace Domain.Interfaces;
 
 public interface ICategoryRepository
 {
-    Task<List<Category>> GetAllCategories();
-    Task<Category?> GetCategory(int id);
-    Task<bool> AddCategory(Category c);
-    Task<bool> UpdateCategory(Category c);
-    Task<bool> DeleteCategory(int id);
+    Task<List<Category>> GetAllCategoriesAsync();
+    Task<Category?> GetCategoryAsync(int id);
+    Task<bool> AddCategoryAsync(Category c);
+    Task<bool> UpdateCategoryAsync(Category c);
+    Task<bool> DeleteCategoryAsync(int id);
 }

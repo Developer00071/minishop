@@ -17,14 +17,6 @@
           "WebApi.dll": {}
         }
       },
-      "Dapper/2.1.89": {
-        "runtime": {
-          "lib/net10.0/Dapper.dll": {
-            "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.1.89.60231"
-          }
-        }
-      },
       "Microsoft.AspNetCore.OpenApi/10.0.10": {
         "dependencies": {
           "Microsoft.OpenApi": "2.7.5"
@@ -33,6 +25,36 @@
           "lib/net10.0/Microsoft.AspNetCore.OpenApi.dll": {
             "assemblyVersion": "10.0.10.0",
             "fileVersion": "10.0.1026.32716"
+          }
+        }
+      },
+      "Microsoft.EntityFrameworkCore/10.0.15": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Abstractions": "10.0.15"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.EntityFrameworkCore.dll": {
+            "assemblyVersion": "10.0.15.0",
+            "fileVersion": "10.0.1526.53008"
+          }
+        }
+      },
+      "Microsoft.EntityFrameworkCore.Abstractions/10.0.15": {
+        "runtime": {
+          "lib/net10.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {
+            "assemblyVersion": "10.0.15.0",
+            "fileVersion": "10.0.1526.53008"
+          }
+        }
+      },
+      "Microsoft.EntityFrameworkCore.Relational/10.0.4": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "10.0.15"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.EntityFrameworkCore.Relational.dll": {
+            "assemblyVersion": "10.0.4.0",
+            "fileVersion": "10.0.426.12010"
           }
         }
       },
@@ -47,6 +69,19 @@
       "Npgsql/10.0.3": {
         "runtime": {
           "lib/net10.0/Npgsql.dll": {
+            "assemblyVersion": "10.0.3.0",
+            "fileVersion": "10.0.3.0"
+          }
+        }
+      },
+      "Npgsql.EntityFrameworkCore.PostgreSQL/10.0.3": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "10.0.15",
+          "Microsoft.EntityFrameworkCore.Relational": "10.0.4",
+          "Npgsql": "10.0.3"
+        },
+        "runtime": {
+          "lib/net10.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll": {
             "assemblyVersion": "10.0.3.0",
             "fileVersion": "10.0.3.0"
           }
@@ -91,9 +126,7 @@
       },
       "Application/1.0.0": {
         "dependencies": {
-          "Dapper": "2.1.89",
-          "Domain": "1.0.0",
-          "Npgsql": "10.0.3"
+          "Domain": "1.0.0"
         },
         "runtime": {
           "Application.dll": {
@@ -103,9 +136,6 @@
         }
       },
       "Domain/1.0.0": {
-        "dependencies": {
-          "Npgsql": "10.0.3"
-        },
         "runtime": {
           "Domain.dll": {
             "assemblyVersion": "1.0.0.0",
@@ -115,9 +145,9 @@
       },
       "Infrastructure/1.0.0": {
         "dependencies": {
-          "Application": "1.0.0",
-          "Dapper": "2.1.89",
-          "Domain": "1.0.0"
+          "Domain": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "10.0.15",
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "10.0.3"
         },
         "runtime": {
           "Infrastructure.dll": {
@@ -134,19 +164,33 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Dapper/2.1.89": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-1VjFE664wnxvuhlgP8kS4PeFFF4jqD3VkbIHW6Zlc52zuibgcz5ICnIHcQXlTp6pURpPNGLV0ZpNe5x9KePJnA==",
-      "path": "dapper/2.1.89",
-      "hashPath": "dapper.2.1.89.nupkg.sha512"
-    },
     "Microsoft.AspNetCore.OpenApi/10.0.10": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-d4Atx9IHq7JgX0F/h7Db+m9zAUzC+cKdI9k+OWnnyQIOUQtfvjIEuhvbjPigVMkAmPUgCbJ8Yp6M9ghUqHtJSQ==",
       "path": "microsoft.aspnetcore.openapi/10.0.10",
       "hashPath": "microsoft.aspnetcore.openapi.10.0.10.nupkg.sha512"
+    },
+    "Microsoft.EntityFrameworkCore/10.0.15": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-cp0ocqFrk6SXPy5xAI4gf2RlTk7jO4LcybDGWKp5F5zjPKyn2fEulElXIrCWreQFe8/4u01xoVhscrabhOOnhw==",
+      "path": "microsoft.entityframeworkcore/10.0.15",
+      "hashPath": "microsoft.entityframeworkcore.10.0.15.nupkg.sha512"
+    },
+    "Microsoft.EntityFrameworkCore.Abstractions/10.0.15": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-aLHlTnngp1CcWF5gWbqNwcfROjINCaQVKoySCFpl8O/EQaCdvtW+miv9KoSpKDtWIN+W7lZ8yr4KnbK3hp9oYQ==",
+      "path": "microsoft.entityframeworkcore.abstractions/10.0.15",
+      "hashPath": "microsoft.entityframeworkcore.abstractions.10.0.15.nupkg.sha512"
+    },
+    "Microsoft.EntityFrameworkCore.Relational/10.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-DOTjTHy93W3TwpMLM4SCm0n57Sc0Jj3+m2S6LSTstKyBB34eT1UouaMS19mpWwvtj42+sRiEjA3+rOTNoNzXFQ==",
+      "path": "microsoft.entityframeworkcore.relational/10.0.4",
+      "hashPath": "microsoft.entityframeworkcore.relational.10.0.4.nupkg.sha512"
     },
     "Microsoft.OpenApi/2.7.5": {
       "type": "package",
@@ -161,6 +205,13 @@
       "sha512": "sha512-7nb5YzXuvWWJxB0J8DiyL3we+X4FOctZrt0fIBnucOIaIevFEEwGQVZKtiu9olXdlNAK1eNgqSral6r/jlhI4w==",
       "path": "npgsql/10.0.3",
       "hashPath": "npgsql.10.0.3.nupkg.sha512"
+    },
+    "Npgsql.EntityFrameworkCore.PostgreSQL/10.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-IPGrrZnRkuW7OlHDhUESZz4G5DLkW7Nej/O3Cx+0iTsgyU5XJxBgpsvTHLloo3WWuAKKbDHXBvWPVkX1deRh1Q==",
+      "path": "npgsql.entityframeworkcore.postgresql/10.0.3",
+      "hashPath": "npgsql.entityframeworkcore.postgresql.10.0.3.nupkg.sha512"
     },
     "Swashbuckle.AspNetCore/10.3.1": {
       "type": "package",

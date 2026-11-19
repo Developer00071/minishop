@@ -8,7 +8,7 @@ public class RequestLoggingMiddleWare
         _request = request;
     }
 
-    public async Task TaskAsync(HttpContext context)
+    public async Task InvokeAsync(HttpContext context)
     {
         System.Console.WriteLine($"Request: {context.Request.Path}");
         await _request(context);

@@ -5,9 +5,9 @@ namespace Application.Interfaces;
 
 public interface ICategoryService
 {
-    Task<ApiResponse<List<CategoryDto>>> GetAllCategories();
-    Task<ApiResponse<CategoryDto>> GetCategory(int id);
-    Task<ApiResponse<bool>> AddCategory(CategoryDto category);
-    Task<ApiResponse<bool>> UpdateCategory(CategoryDto category);
-    Task<ApiResponse<bool>> DeleteCategory(int id);
+    Task<ApiResponse<List<CategoryDto>>> GetAllCategoriesAsync();
+    Task<ApiResponse<CategoryDto>> GetCategoryAsync(int id);
+    Task<ApiResponse<bool>> AddCategoryAsync(CategoryDto category);
+    Task<ApiResponse<bool>> UpdateCategoryAsync(int id, CategoryDto category);
+    Task<ApiResponse<bool>> DeleteCategoryAsync(int id);
 }
